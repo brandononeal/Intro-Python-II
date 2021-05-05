@@ -37,7 +37,7 @@ room['treasure'].s_to = room['narrow']
 # Main
 
 game = True
-player = Player('Brandon', room['outside'], [Item('Apple', 'A tasty snack'), Item('Chestplate', 'Protect thy chest')])
+player = Player('Brandon', room['outside'], [Item('Apple', 'A tasty snack'), Item('Boots', 'Protection galore')])
 
 def movement(dir):
     player.move(attribute)
@@ -46,20 +46,12 @@ def movement(dir):
     print(f'Items in room: {player.current_room.__str__()}')
     print(f'Items in inventory: {player.__str__()}')
 
-def take(item):
-    player.take_item(item)
-    print(f'takes {item}\n')
-
-def drop(item):
-    player.drop_item(item)
-    print(f'drops {item}\n')
-
 while game:
     try:
         selection = input('Input an action: ')
         attribute = selection + '_to'
-        take_item = selection.replace('take ', '')
-        drop_item = selection.replace('drop ', '')
+        take = selection.replace('take ', '')
+        drop = selection.replace('drop ', '')
 
         if selection == 'n':
             movement('north')
@@ -77,10 +69,10 @@ while game:
             print('Game over')
             game = False
         if 'take' in selection:
-            take(take_item)
+            player.take_item(take)
             continue
         if 'drop' in selection:
-            drop(drop_item)
+            player.drop_item(drop)
             continue
         else:
             print('\nPlease input a valid command:\nn, s, e, w, q, take [item], or drop [item]\n')

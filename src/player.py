@@ -11,17 +11,25 @@ class Player:
         if hasattr(self.current_room, dir):
             self.current_room = getattr(self.current_room, dir)
 
-    def take_item(self,item): 
+    def take_item(self, item): 
         for x in self.current_room.items:
-            if x.name.strip() == item.strip():
+            if x.name.strip().lower() == item.strip().lower():
                 self.inventory.append(x)
                 self.current_room.items.remove(x)
+                print(f'Added {item} to your inventory\n')
+            else:
+                print(f'No {item} found in this room\n')
+                break
     
-    def drop_item(self,item):
+    def drop_item(self, item):
         for x in self.inventory:
-            if x.name.strip() == item.strip():
-                self.current_room.items.append(x)
+            if x.name.strip().lower() == item.strip().lower():
                 self.inventory.remove(x)
+                self.current_room.items.append(x)
+                print(f'Dropped {item}\n')
+            else:
+                print(f'You do not have {item} to drop.\n')
+                break
 
     def __str__(self):
         output = '\n'
@@ -30,6 +38,6 @@ class Player:
             output = 'Nothing currently in your inventory'
         else:
             for i, item in enumerate(self.inventory):
-                output += f'({i + 1}) {item}\n'
+                output += f'[{i + 1}] {item}\n'
 
         return output

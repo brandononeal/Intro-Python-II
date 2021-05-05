@@ -8,9 +8,9 @@ class Room:
         output = f'\n'
 
         if len(self.items) < 1:
-            output = f'No items available in {self.name}'
+            output = f'\nNo items available in {self.name}\n'
         else:
-            for i in self.items:
-                output += f'{i}\n'
+            for i,item in enumerate(self.items):
+                output += f'[{i + 1}] {item}\n'
 
         return output
